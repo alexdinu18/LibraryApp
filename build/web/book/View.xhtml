@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewBookTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewBookLabel_id}"/>
+                    <h:outputText value="#{bookController.selected.id}" title="#{bundle.ViewBookTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_title}"/>
+                    <h:outputText value="#{bookController.selected.title}" title="#{bundle.ViewBookTitle_title}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_author}"/>
+                    <h:outputText value="#{bookController.selected.author}" title="#{bundle.ViewBookTitle_author}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_publisher}"/>
+                    <h:outputText value="#{bookController.selected.publisher}" title="#{bundle.ViewBookTitle_publisher}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_appearanceYear}"/>
+                    <h:outputText value="#{bookController.selected.appearanceYear}" title="#{bundle.ViewBookTitle_appearanceYear}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_numberOfUnits}"/>
+                    <h:outputText value="#{bookController.selected.numberOfUnits}" title="#{bundle.ViewBookTitle_numberOfUnits}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_request}"/>
+                    <h:outputText value="#{bookController.selected.request}" title="#{bundle.ViewBookTitle_request}"/>
+                    <h:outputText value="#{bundle.ViewBookLabel_cart}"/>
+                    <h:outputText value="#{bookController.selected.cart}" title="#{bundle.ViewBookTitle_cart}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bookController.destroyAndView}" value="#{bundle.ViewBookDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewBookEditLink}"/>
+                <br />
+                <h:commandLink action="#{bookController.prepareCreate}" value="#{bundle.ViewBookCreateLink}" />
+                <br />
+                <h:commandLink action="#{bookController.prepareList}" value="#{bundle.ViewBookShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewBookIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

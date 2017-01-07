@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRequestTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRequestLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{requestController.selected.id}" title="#{bundle.CreateRequestTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateRequestLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{requestController.selected.user}" title="#{bundle.CreateRequestTitle_user}" >
+                        <f:selectItems value="#{libraryUserController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateRequestLabel_status}" for="status" />
+                    <h:inputText id="status" value="#{requestController.selected.status}" title="#{bundle.CreateRequestTitle_status}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{requestController.create}" value="#{bundle.CreateRequestSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{requestController.prepareList}" value="#{bundle.CreateRequestShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRequestIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

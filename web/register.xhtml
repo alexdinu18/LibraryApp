@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Creează-ți contul</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:outputLabel value="Nume Utilizator" for="username" />
+            <h:inputText id="username" value="#{libraryUserController.selected.username}" title="Username"/>
+            <h:message for="username" errorStyle="color: red" infoStyle="color: green" />
+            <br></br>
+                
+            <h:outputLabel value="Parolă" for="password" />
+            <h:inputSecret id="password" value="#{libraryUserController.selected.password}" title="Password"/>
+            <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
+            <br></br>
+            
+            <h:outputLabel value="Prenume" for="firstName" />
+            <h:inputText id="firstName" value="#{libraryUserController.selected.firstName}" title="Prenume"/>
+            <h:message for="firstName" errorStyle="color: red" infoStyle="color: green" />
+            <br></br>
+           
+            <h:outputLabel value="Nume" for="lastName" />
+            <h:inputText id="lastName" value="#{libraryUserController.selected.lastName}" title="Nume"/>
+            <h:message for="lastName" errorStyle="color: red" infoStyle="color: green" />
+            <br></br>
+            
+            <h:outputLabel value="Email" for="email" />
+            <h:inputText id="email" value="#{libraryUserController.selected.email}" title="Email"/>
+            <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
+            <br></br>
+            <br></br>
+
+            <h:commandButton value="Înregistrează-mă" action="#{libraryUserController.create}" />
+        </h:form>
+        
+        <h:button value="Înapoi" outcome="index" />
+    </h:body>
+</html>

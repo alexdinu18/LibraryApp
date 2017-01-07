@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPenaltyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPenaltyLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{penaltyController.selected.id}" title="#{bundle.EditPenaltyTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditPenaltyLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{penaltyController.selected.user}" title="#{bundle.EditPenaltyTitle_user}" >
+                        <f:selectItems value="#{libraryUserController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPenaltyLabel_book}" for="book" />
+                    <h:selectOneMenu id="book" value="#{penaltyController.selected.book}" title="#{bundle.EditPenaltyTitle_book}" >
+                        <f:selectItems value="#{bookController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPenaltyLabel_penaltyPrice}" for="penaltyPrice" />
+                    <h:inputText id="penaltyPrice" value="#{penaltyController.selected.penaltyPrice}" title="#{bundle.EditPenaltyTitle_penaltyPrice}" />
+                </h:panelGrid>
+                <h:commandLink action="#{penaltyController.update}" value="#{bundle.EditPenaltySaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPenaltyViewLink}"/>
+                <br />
+                <h:commandLink action="#{penaltyController.prepareList}" value="#{bundle.EditPenaltyShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPenaltyIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
