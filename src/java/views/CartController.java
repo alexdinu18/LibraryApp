@@ -1,6 +1,7 @@
 package views;
 
 import entity.Cart;
+import entity.LibraryUser;
 import views.util.JsfUtil;
 import views.util.PaginationHelper;
 import models.CartFacade;
@@ -73,14 +74,16 @@ public class CartController implements Serializable {
         return "View";
     }
 
-    public String prepareCreate() {
+    public Cart prepareCreate() {
+        Cart userCart = current;
         current = new Cart();
         selectedItemIndex = -1;
-        return "Create";
+        return userCart;
     }
 
-    public String create() {
+    public Cart create() {//LibraryUser user
         try {
+//            current.setUser(user);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CartCreated"));
             return prepareCreate();
@@ -96,14 +99,12 @@ public class CartController implements Serializable {
         return "Edit";
     }
 
-    public String update() {
+    public void update(Cart cart) {
         try {
-            getFacade().edit(current);
+            getFacade().edit(cart);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CartUpdated"));
-            return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
         }
     }
 

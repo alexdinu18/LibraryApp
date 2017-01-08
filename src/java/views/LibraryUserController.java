@@ -1,13 +1,20 @@
 package views;
 
+import entity.Book;
+import entity.Cart;
 import entity.LibraryUser;
 import views.util.JsfUtil;
 import views.util.PaginationHelper;
 import models.LibraryUserFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -30,8 +37,18 @@ public class LibraryUserController implements Serializable {
     @EJB private models.LibraryUserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Book bookParameter;
+    private Logger logger = Logger.getLogger("libraryUserController");
 
     public LibraryUserController() {
+    }
+
+    public Book getBookParameter() {
+        return bookParameter;
+    }
+
+    public void setBookParameter(Book bookParameter) {
+        this.bookParameter = bookParameter;
     }
 
     public LibraryUser getSelected() {
@@ -97,14 +114,12 @@ public class LibraryUserController implements Serializable {
         return "Edit";
     }
 
-    public String update() {
+    public void update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LibraryUserUpdated"));
-            return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
         }
     }
 
@@ -240,12 +255,54 @@ public class LibraryUserController implements Serializable {
         for (LibraryUser user : users) {
             if (user.getUsername().equals(current.getUsername()) && 
                 user.getPassword().equals(current.getPassword())) {
+                current = user;
                 JsfUtil.addSuccessMessage("V-ați autentificat cu succes.");
                 return "home";
             }
         }
         
+        current = null;
         JsfUtil.addErrorMessage("Numele de utilizator și/sau parola sunt greșite.");
         return "index";
+    }
+    
+    public String addBookToCart() {
+        logger.info("Entering addBookToCart...");
+//
+//        Map<String,String> params =
+//        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//	String action = params.get("bookParameter");
+//        logger.log(Level.INFO, "bookParam={0}", action);
+
+        if (current.getCart() == null) {
+            addCartToUser();
+        }
+        
+        Collection<Book> books = current.getCart().getBooks();
+        
+        if (books == null) {
+            books = new ArrayList<>();
+        }
+        
+        logger.info(bookParameter.toString());
+        books.add(bookParameter);
+        current.getCart().setBooks(books);
+        new CartController().update(current.getCart());
+        
+        logger.info("Exiting addBookToCart...");
+        return "home";
+    }
+    
+    public void addCartToUser() {
+        logger.info("Entering addCartToUser...");
+        CartController cartController = new CartController();
+        
+        // Create cart for current user.
+        cartController.getSelected().setUser(current);
+        Cart cart = cartController.create();
+        
+        current.setCart(cart);
+        this.update();
+        logger.info("Exiting addCartToUser...");
     }
 }
