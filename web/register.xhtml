@@ -1,41 +1,66 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui" >
     <h:head>
         <title>Creează-ți contul</title>
+        <h:outputStylesheet name="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
     </h:head>
     <h:body>
-        <h:form>
-            <h:outputLabel value="Nume Utilizator" for="username" />
-            <h:inputText id="username" value="#{libraryUserController.selected.username}" title="Username"/>
-            <h:message for="username" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
+        <b:container>
+            <h1 id="loginHeader">Creează-ți contul</h1>
+            
+            <h:form class="form-horizontal" id="loginForm">
+                <div class="form-group">
+                    <h:outputLabel value="Nume utilizator" for="username" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="username" value="#{libraryUserController.selected.username}" class="form-control" title="Username"/>
+                    </div>
+                    <h:message for="username" errorStyle="color: red" infoStyle="color: green" />
+                </div>
                 
-            <h:outputLabel value="Parolă" for="password" />
-            <h:inputSecret id="password" value="#{libraryUserController.selected.password}" title="Password"/>
-            <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-            
-            <h:outputLabel value="Prenume" for="firstName" />
-            <h:inputText id="firstName" value="#{libraryUserController.selected.firstName}" title="Prenume"/>
-            <h:message for="firstName" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-           
-            <h:outputLabel value="Nume" for="lastName" />
-            <h:inputText id="lastName" value="#{libraryUserController.selected.lastName}" title="Nume"/>
-            <h:message for="lastName" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-            
-            <h:outputLabel value="Email" for="email" />
-            <h:inputText id="email" value="#{libraryUserController.selected.email}" title="Email"/>
-            <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-            <br></br>
+                <div class="form-group">
+                    <h:outputLabel value="Parolă" for="password" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputSecret id="password" value="#{libraryUserController.selected.password}" class="form-control" title="Password"/>
+                    </div>
+                    <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel value="Prenume" for="firstName" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="firstName" value="#{libraryUserController.selected.firstName}" class="form-control" title="Prenume"/>
+                    </div>
+                    <h:message for="firstName" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel value="Nume" for="lastName" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="lastName" value="#{libraryUserController.selected.lastName}" class="form-control" title="Nume"/>
+                    </div>
+                    <h:message for="lastName" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+          
 
-            <h:commandButton value="Înregistrează-mă" action="#{libraryUserController.create}" />
-        </h:form>
-        
-        <h:button value="Înapoi" outcome="index" />
+                <div class="form-group">
+                    <h:outputLabel value="Email" for="email" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="email" value="#{libraryUserController.selected.email}" class="form-control" title="Nume"/>
+                    </div>
+                    <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+
+                <div id="registerButtons" class="form-group">
+                    <b:commandButton value="Înregistrează-mă"  class="btn btn-primary" action="#{libraryUserController.create}" />
+                    <br />
+                    <b:button value="Înapoi" class="btn btn-default" outcome="index" />
+                </div>
+                
+            </h:form>
+        </b:container>
     </h:body>
 </html>

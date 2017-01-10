@@ -2,53 +2,69 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Coșul meu</title>
+        <h:outputStylesheet name="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
     </h:head>
     <h:body>
-        <h:dataTable id="books" value="" var="book"> <!-- # {library.user.cart}-->
-            <f:facet name="header">
-                <h4>Cărți selectate</h4>
-            </f:facet>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Nr." />
-                </f:facet>
-                <h:outputText value="1" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Titlu" />
-                </f:facet>
-                <h:outputText value="# {book.title}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Autor(i)" />
-                </f:facet>
-                <h:outputText value="# {book.author}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Editură" />
-                </f:facet>
-                <h:outputText value="# {book.publisher}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="An apariție" />
-                </f:facet>
-                <h:outputText value="# {book.year}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="" />
-                </f:facet>
-                <h:button value="Șterge" outcome="viewcart" /> <!-- TODO pay attention to outcome -->
-            </h:column>
-        </h:dataTable>
-        <h:button value="Trimite cererea" outcome="viewcart" /> <!-- TODO pay attention to outcome -->
-        <h:button value="Înapoi" outcome="home" />
+        <b:container>
+            <div>
+                <h4>Bine ai venit, #{libraryUserController.selected.username}! Ai #{libraryUserController.selected.cart.booksSize} în coș.</h4>
+            </div>
+            <h1 align="center">Cărți selectate</h1>
+            <b:dataTable id="books" value="#{libraryUserController.selected.cart.books}" var="book">
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Id" />
+                    </f:facet>
+                    <h:outputText value="#{book.id}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Titlu" />
+                    </f:facet>
+                    <h:outputText value="#{book.title}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Autor(i)" />
+                    </f:facet>
+                    <h:outputText value="#{book.author}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Editură" />
+                    </f:facet>
+                    <h:outputText value="#{book.publisher}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="An apariție" />
+                    </f:facet>
+                    <h:outputText value="#{book.appearanceYear}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="" />
+                    </f:facet>
+                    <h:form>
+                        <h:commandButton value="Șterge" action="#{cartController.removeBook}" class="btn btn-danger btn-xs">
+                            <f:setPropertyActionListener target="#{cartController.bookToDelete}" value="#{book}" />
+                            <f:setPropertyActionListener target="#{cartController.currentCart}" value="#{libraryUserController.selected.cart}" />
+                        </h:commandButton>
+                    </h:form>
+                </b:dataTableColumn>
+            </b:dataTable>
+            <h:form>
+                <h:commandButton value="Trimite cererea" action="#{requestController.create}" class="btn btn-primary">
+                    <f:setPropertyActionListener target="#{requestController.books}" value="#{libraryUserController.selected.cart.books}" />
+                    <f:setPropertyActionListener target="#{requestController.user}" value="#{libraryUserController.selected}" />
+                </h:commandButton>
+            </h:form>
+            <h:button value="Înapoi" outcome="home" class="btn btn-default"/>
+        </b:container>
     </h:body>
 </html>

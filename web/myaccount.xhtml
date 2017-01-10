@@ -2,91 +2,113 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Contul Meu</title>
+        <h:outputStylesheet name="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
     </h:head>
     <h:body>
-        <h:form>
-            <h:outputLabel value="Nume Utilizator" for="username" />
-            <h:inputText id="username" value="" title="Username"/>
-            <h:message for="username" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
+        <b:container>
+            <div>
+                <h4>Bine ai venit, #{libraryUserController.selected.username}! Acesta este contul tău.</h4>
+            </div>
+            <h1 align="center">Contul meu</h1>
+            <h:form class="form-horizontal" id="loginForm">
+                <div class="form-group">
+                    <h:outputLabel value="Nume utilizator" for="username" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="username" value="#{libraryUserController.selected.username}" class="form-control" title="Username"/>
+                    </div>
+                    <h:message for="username" errorStyle="color: red" infoStyle="color: green" />
+                </div>
                 
-            <h:outputLabel value="Parolă" for="password" />
-            <h:inputSecret id="password" value="" title="Password"/>
-            <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-            
-            <h:outputLabel value="Prenume" for="firstName" />
-            <h:inputSecret id="firstName" value="" title="Prenume"/>
-            <h:message for="firstName" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-           
-            <h:outputLabel value="Nume" for="lastName" />
-            <h:inputSecret id="lastName" value="" title="Nume"/>
-            <h:message for="lastName" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-            
-            <h:outputLabel value="Email" for="email" />
-            <h:inputSecret id="email" value="" title="Email"/>
-            <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
-            <br></br>
-            <br></br>
+                <div class="form-group">
+                    <h:outputLabel value="Parolă" for="password" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputSecret id="password" value="#{libraryUserController.selected.password}" class="form-control" title="Password"/>
+                    </div>
+                    <h:message for="password" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel value="Prenume" for="firstName" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="firstName" value="#{libraryUserController.selected.firstName}" class="form-control" title="Prenume"/>
+                    </div>
+                    <h:message for="firstName" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel value="Nume" for="lastName" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="lastName" value="#{libraryUserController.selected.lastName}" class="form-control" title="Nume"/>
+                    </div>
+                    <h:message for="lastName" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+          
 
-           <h:commandButton value="Modifică" action="home" /><!-- action="# {orderManager.submitOrder}"-->
-        </h:form>
-        <h:dataTable id="requests" value="" var="book"> <!-- # {library.user.cart}-->
-            <f:facet name="header">
-                <h4>Cererile mele</h4>
-            </f:facet>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Carte" />
-                </f:facet>
-                <h:outputText value="Pădurea spânzuraților, Liviu Rebreanu" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Dată împrumut" />
-                </f:facet>
-                <h:outputText value="# {history.from}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Dată returnare" />
-                </f:facet>
-                <h:outputText value="# {history.until}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Status" />
-                </f:facet>
-                <h:outputText value="În așteptare" />
-            </h:column>
-        </h:dataTable>
-        
-        <br></br>
-        
-        <h:dataTable id="penalties" value="" var="book"> <!-- # {library.user.cart}-->
-            <f:facet name="header">
-                <h4>Penalizările mele</h4>
-            </f:facet>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Carte" />
-                </f:facet>
-                <h:outputText value="De veghe în lanul de secară" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Preț" />
-                </f:facet>
-                <h:outputText value="x LEI" />
-            </h:column>
-        </h:dataTable>
-        
-        <!--<h:link value="Înapoi" outcome="index"/>-->
-        <h:button value="Înapoi" outcome="home" />
+                <div class="form-group">
+                    <h:outputLabel value="Email" for="email" class="col-sm-2 control-label" />
+                    <div class="col-sm-3">
+                        <h:inputText id="email" value="#{libraryUserController.selected.email}" class="form-control" title="Nume"/>
+                    </div>
+                    <h:message for="email" errorStyle="color: red" infoStyle="color: green" />
+                </div>
+               
+                <div id="updateAccountButton" class="form-group">
+                    <h:commandButton  value="Modifică" action="#{libraryUserController.update}" class="col-sm-3 btn btn-primary" />
+                </div>
+            </h:form>
+            
+            <h3 align="center" style="color: black">Cererile mele</h3>
+            <b:dataTable id="requests" value="" var="book"> <!-- # {library.user.cart}-->
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Carte" />
+                    </f:facet>
+                    <h:outputText value="Pădurea spânzuraților, Liviu Rebreanu" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Dată împrumut" />
+                    </f:facet>
+                    <h:outputText value="# {history.from}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Dată returnare" />
+                    </f:facet>
+                    <h:outputText value="# {history.until}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Status" />
+                    </f:facet>
+                    <h:outputText value="În așteptare" />
+                </b:dataTableColumn>
+            </b:dataTable>
+
+            <h3 align="center" style="color: black">Penalizările mele</h3>
+
+            <b:dataTable id="penalties" value="" var="book"> <!-- # {library.user.cart}-->
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Carte" />
+                    </f:facet>
+                    <h:outputText value="De veghe în lanul de secară" />
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        <h:outputText value="Preț" />
+                    </f:facet>
+                    <h:outputText value="x LEI" />
+                </b:dataTableColumn>
+            </b:dataTable>
+
+            <!--<h:link value="Înapoi" outcome="index"/>-->
+            <h:button value="Înapoi" outcome="home" class="btn btn-default" />
+        </b:container>
     </h:body>
 </html>
